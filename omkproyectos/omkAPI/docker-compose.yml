@@ -1,0 +1,41 @@
+version: "3"
+services:
+  omkpostgres:
+    image: postgres:13.3
+    container_name: postgresAPIJardineria
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pswJardineria
+      POSTGRES_DB: Jardineria
+      POSTGRES_USER: postgres
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      omk1network:
+        ipv4_address: 172.130.10.10
+    
+  nginexapi:
+    container_name: jardineriaAPI
+    image: omkapijardineria:latest
+    ports:
+      - "3009:3001"
+    environment:
+      - USER=omktaller
+      - PASSWORD=omktaller
+      - REPO=https://github.com/morgadodesarrollador/ApiJardineriaNest.git
+      - DB_HOST=172.130.10.10
+      - DB_PORT=5432
+    networks:
+      omk1network:
+        ipv4_address: 172.130.10.20
+
+
+
+networks:
+  omk1network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.130.10.0/24

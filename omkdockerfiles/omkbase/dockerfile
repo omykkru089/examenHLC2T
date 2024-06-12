@@ -1,0 +1,39 @@
+FROM nginx:latest
+
+WORKDIR /root
+
+# Inslaciones de todos los paquetes necesarios 
+RUN apt-get update \
+    && apt-get install -y \
+    nano \
+    net-tools \
+    iputils-ping \
+    dos2unix \
+    openssh-server\ 
+    openssh-client \
+    git \
+    curl \
+    nodejs \
+    npm \
+    yarn \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Creamos un directorio para guardar la api
+RUN mkdir -p /root/api
+
+# Copiamos nuestro start.sh local hacia el contenedor
+COPY omkscript/omkstart.sh /root/start.sh
+RUN chmod +x /root/start.sh
+
+# Abrimos puertos necesarios y por sea caso
+EXPOSE 80
+EXPOSE 3001
+EXPOSE 3000
+EXPOSE 3009
+EXPOSE 5432
+EXPOSE 5433
+
+# Colocamos entrypoint
+ENTRYPOINT ["/root/start.sh"]
+
