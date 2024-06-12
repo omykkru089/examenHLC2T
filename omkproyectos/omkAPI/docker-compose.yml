@@ -22,8 +22,8 @@ services:
     ports:
       - "3009:3001"
     environment:
-      - USER=omktaller
-      - PASSWORD=omktaller
+      - USER=omkjardineria
+      - PASSWORD=omkjardineria
       - REPO=https://github.com/morgadodesarrollador/ApiJardineriaNest.git
       - DB_HOST=172.130.10.10
       - DB_PORT=5432

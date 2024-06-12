@@ -27,7 +27,6 @@ COPY omkscript/omkstart.sh /root/start.sh
 RUN chmod +x /root/start.sh
 
 # Abrimos puertos necesarios y por sea caso
-EXPOSE 80
 EXPOSE 3001
 EXPOSE 3000
 EXPOSE 3009
